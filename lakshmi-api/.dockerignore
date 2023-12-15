@@ -1,0 +1,7 @@
+/.github
+/.venv
+/tests
+/venv
+README.md
+setup.*
+tox.ini

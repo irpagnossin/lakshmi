@@ -1,0 +1,14 @@
+*egg-info
+.coverage
+.eggs
+.env
+.tox
+.venv
+ENV/
+__pycache__
+env.bak/
+env/
+venv.bak/
+venv/
+*.pyc
+build

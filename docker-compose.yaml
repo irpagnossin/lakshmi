@@ -1,0 +1,80 @@
+version: "3.8"
+
+services:
+  mysql:
+    image: mysql:8.2.0
+    container_name: sge
+    restart: always
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_DATABASE=sge
+    volumes:
+      - mysql:/var/lib/mysql/
+      - ./mysql:/docker-entrypoint-initdb.d
+    ports:
+      - "3306:3306"
+    networks:
+      - default
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    labels:
+      br.com.company.description: Sitema de Gestão Acadêmico
+      br.com.company.project: Empregabilidade baseada em competências
+      br.com.company.team: irpagnossin
+
+  lakshmi-mongo:
+    image: mongo:3.6
+    container_name: lakshmi-mongo
+    restart: always
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=root
+      - MONGO_INITDB_ROOT_PASSWORD=root
+    volumes:
+      - mongo:/var/lib/mongodb/data
+      - ./mongo:/docker-entrypoint-initdb.d
+    ports:
+      - "27017:27017"
+    networks:
+      - default
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    labels:
+      br.com.company.description: MongoDB usado pelo Competence Matcher
+      br.com.company.project: Empregabilidade baseada em competências
+      br.com.company.team: irpagnossin
+
+  lakshmi-api:
+    image: lakshmi-api:0.9.0
+    container_name: lakshmi-api
+    restart: always
+    build:
+      context: ./lakshmi-api
+      dockerfile: Dockerfile
+      labels:
+        br.com.company.description: API REST do serviço de recomendação
+        br.com.company.project: Empregabilidade baseada em competências
+        br.com.company.team: irpagnossin
+    volumes:
+      - ./lakshmi-api/app:/app
+    env_file:
+      - ./lakshmi-api/.env
+    ports:
+      - "80:80"
+    networks:
+      - default
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    labels:
+      br.com.company.description: API REST do serviço de recomendação
+      br.com.company.project: Empregabilidade baseada em competências
+      br.com.company.team: irpagnossin
+    depends_on:
+      - lakshmi-mongo
+
+volumes:
+  mysql:
+  mongo:
+
+networks:
+  default:
+    driver: bridge

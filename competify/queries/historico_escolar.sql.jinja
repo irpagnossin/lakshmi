@@ -1,0 +1,11 @@
+SELECT
+    cpf,
+    student_id,
+    nome,
+    disciplina,
+    faltas,
+    nota_final
+FROM
+    historico_escolar
+WHERE
+    student_id = {{ student_id }};

@@ -1,0 +1,23 @@
+[CLASS_COMPETENCES]
+arquivo = ./inputs/disciplinas-competencias.xlsx
+aba = Sheet1
+
+[STUDENTS]
+mask = ./inputs/ids/*.csv
+
+[ASSESSMENTS]
+max = 100
+
+[LAKSHMI_API]
+candidates_endpoint = http://127.0.0.1/candidates
+carreer_id = 1
+AUTH_TOKEN = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0eXBlIjoiYWNjZXNzX3Rva2VuIiwiZXhwIjoxNzM4ODY2ODk4LCJpYXQiOjE3MDI1Nzg4OTgsInN1YiI6InVzZXJAY29tcGFueS5jb20ifQ.pw5IV_Pl9veR4mxU0fwfrnTDjHlT6raqa60h7l7lb-A
+
+[SQLITE]
+connection = sqlite:///sqlite.db
+
+[SGE]
+SGE_HOSTNAME = 127.0.0.1
+SGE_DATABASE = sge
+SGE_USERNAME = root
+SGE_PASSWORD = root
